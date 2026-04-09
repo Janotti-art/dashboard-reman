@@ -6,145 +6,564 @@
 <title>Dashboard REMAN — Follow Up de Pedidos</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;background:#121212;color:#e0e0e0;min-height:100vh;zoom:0.9}
-.header{background:#1e1e1e;padding:10px 24px;border-bottom:1px solid #2a2a2a;position:sticky;top:0;z-index:100}
-.header h1{font-size:15px;font-weight:600;color:#fff}
-.header h1 span{color:#888;font-size:11px;font-weight:400;margin-left:8px}
-.nav-bar{display:flex;align-items:center;background:#1e1e1e;border-bottom:1px solid #2a2a2a;padding:0 24px;position:sticky;top:38px;z-index:99;height:38px;overflow:visible}
-.tabs-left{display:flex;height:100%;flex-shrink:0}
-.tab{padding:0 16px;font-size:11px;cursor:pointer;border-bottom:2px solid transparent;color:#888;transition:.2s;display:flex;align-items:center;gap:5px;white-space:nowrap;height:100%}
+
+:root{
+    --bg:#121212;
+    --panel:#1e1e1e;
+    --panel-2:#1a1a1a;
+    --border:#2a2a2a;
+    --muted:#888;
+    --muted-2:#666;
+    --text:#e0e0e0;
+    --white:#fff;
+    --green:#228b5a;
+    --blue:#0b4ea2;
+    --orange:#ba7517;
+    --red:#a32d2d;
+}
+
+html, body{
+    width:100%;
+    max-width:100%;
+}
+
+body{
+    font-family:'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+.header{
+    width:100%;
+    background:var(--panel);
+    padding:10px 14px;
+    border-bottom:1px solid var(--border);
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+.header h1{font-size:15px;font-weight:600;color:var(--white)}
+.header h1 span{color:var(--muted);font-size:11px;font-weight:400;margin-left:8px}
+
+.nav-bar{
+    width:100%;
+    display:flex;
+    align-items:flex-start;
+    background:var(--panel);
+    border-bottom:1px solid var(--border);
+    padding:0 14px;
+    position:sticky;
+    top:38px;
+    z-index:300;
+    min-height:38px;
+    overflow:visible;
+    gap:12px;
+}
+
+.tabs-left{
+    display:flex;
+    height:100%;
+    flex-shrink:0;
+    min-width:0;
+}
+
+.tab{
+    padding:0 16px;
+    font-size:11px;
+    cursor:pointer;
+    border-bottom:2px solid transparent;
+    color:var(--muted);
+    transition:.2s;
+    display:flex;
+    align-items:center;
+    gap:5px;
+    white-space:nowrap;
+    height:100%;
+    min-height:38px;
+}
 .tab:hover{color:#ccc}
-.tab.active{color:#fff;border-bottom-color:#228b5a;font-weight:600}
+.tab.active{color:var(--white);border-bottom-color:var(--green);font-weight:600}
 .tab .dot{width:6px;height:6px;border-radius:50%;display:inline-block}
-.tab .dot.green{background:#228b5a}
-.tab .dot.blue{background:#0b4ea2}
-.tab .dot.orange{background:#ba7517}
-.filters-right{display:flex;gap:6px;align-items:center;margin-left:auto}
-.fg{display:flex;align-items:center;gap:3px;position:relative;flex-shrink:0}
-.fg label{font-size:9px;color:#777;text-transform:uppercase;letter-spacing:.3px;white-space:nowrap}
-.fw{position:relative}
-.fi{background:#2a2a2a;color:#ccc;border:1px solid #3a3a3a;border-radius:3px;padding:3px 20px 3px 6px;font-size:11px;width:100px;outline:none;transition:.2s;height:24px}
-.fi:focus{border-color:#0b4ea2;background:#222}
+.tab .dot.green{background:var(--green)}
+.tab .dot.blue{background:var(--blue)}
+.tab .dot.orange{background:var(--orange)}
+
+.filters-right{
+    display:flex;
+    gap:6px;
+    align-items:center;
+    margin-left:auto;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+    min-width:0;
+    max-width:100%;
+}
+
+.fg{
+    display:flex;
+    align-items:center;
+    gap:3px;
+    position:relative;
+    flex-shrink:0;
+    min-width:0;
+    overflow:visible;
+}
+.fg label{
+    font-size:9px;
+    color:#777;
+    text-transform:uppercase;
+    letter-spacing:.3px;
+    white-space:nowrap;
+}
+.fw{
+    position:relative;
+}
+.fi{
+    background:#2a2a2a;
+    color:#ccc;
+    border:1px solid #3a3a3a;
+    border-radius:3px;
+    padding:3px 20px 3px 6px;
+    font-size:11px;
+    width:100px;
+    max-width:100%;
+    outline:none;
+    transition:.2s;
+    height:24px;
+}
+.fi:focus{border-color:var(--blue);background:#222}
 .fi::placeholder{color:#555;font-size:10px}
-.fc{position:absolute;right:4px;top:50%;transform:translateY(-50%);background:none;border:none;color:#555;font-size:12px;cursor:pointer;line-height:1;display:none}
-.fc:hover{color:#fff}
+
+.fc{
+    position:absolute;
+    right:4px;
+    top:50%;
+    transform:translateY(-50%);
+    background:none;
+    border:none;
+    color:#555;
+    font-size:12px;
+    cursor:pointer;
+    line-height:1;
+    display:none;
+}
+.fc:hover{color:var(--white)}
 .fw:hover .fc,.fi:focus~.fc{display:block}
-.fd{position:absolute;top:100%;left:0;background:#2a2a2a;border:1px solid #444;border-radius:4px;max-height:220px;overflow-y:auto;z-index:200;width:180px;display:none;margin-top:3px;box-shadow:0 6px 16px rgba(0,0,0,.5)}
+
+.fd{
+    position:absolute;
+    top:calc(100% + 4px);
+    left:0;
+    background:#2a2a2a;
+    border:1px solid #444;
+    border-radius:4px;
+    max-height:220px;
+    overflow-y:auto;
+    z-index:9999;
+    width:180px;
+    display:none;
+    box-shadow:0 6px 16px rgba(0,0,0,.5);
+}
 .fd.show{display:block}
-.fo{padding:5px 10px;font-size:11px;color:#ccc;cursor:pointer;transition:.1s}
-.fo:hover,.fo.active{background:#0b4ea2;color:#fff}
+
+.fo{
+    padding:5px 10px;
+    font-size:11px;
+    color:#ccc;
+    cursor:pointer;
+    transition:.1s;
+}
+.fo:hover,.fo.active{background:var(--blue);color:var(--white)}
 .fo.all{color:#777;font-style:italic;border-bottom:1px solid #333}
 .fn{font-size:9px;color:#666;margin-left:3px}
 .fs{width:1px;height:16px;background:#333;flex-shrink:0}
-.bl{background:transparent;color:#777;border:1px solid #444;border-radius:3px;padding:3px 8px;font-size:10px;cursor:pointer;transition:.2s;white-space:nowrap;height:24px;flex-shrink:0}
-.bl:hover{background:#333;color:#fff;border-color:#666}
-.content{padding:20px 24px;max-width:1500px;margin:0 auto}
-.section-title{font-size:11px;font-weight:700;letter-spacing:1.5px;color:#666;text-transform:uppercase;margin:20px 0 10px}
-.month-label{font-size:12px;color:#228b5a;margin-bottom:12px}
-.kpi-row{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:10px;margin-bottom:20px}
-.kpi-card{background:#1e1e1e;border:1px solid #2a2a2a;border-radius:8px;padding:14px 16px;min-width:0}
-.kpi-card .label{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
-.kpi-card .value{font-size:16px;font-weight:700;color:#fff;display:flex;align-items:center;gap:4px;white-space:nowrap;flex-wrap:nowrap;min-width:0}
-.kpi-card .badge{font-size:11px;font-weight:600;padding:1px 6px;border-radius:3px;flex-shrink:0}
+
+.bl{
+    background:transparent;
+    color:#777;
+    border:1px solid #444;
+    border-radius:3px;
+    padding:3px 8px;
+    font-size:10px;
+    cursor:pointer;
+    transition:.2s;
+    white-space:nowrap;
+    height:24px;
+    flex-shrink:0;
+}
+.bl:hover{background:#333;color:var(--white);border-color:#666}
+
+.content{
+    padding:20px 14px;
+    width:100%;
+    max-width:100%;
+    margin:0 auto;
+}
+
+.section-title{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    color:var(--muted-2);
+    text-transform:uppercase;
+    margin:20px 0 10px;
+}
+
+.month-label{
+    font-size:12px;
+    color:var(--green);
+    margin-bottom:12px;
+}
+
+.kpi-row{
+    display:grid;
+    grid-template-columns:repeat(8,minmax(0,1fr));
+    gap:10px;
+    margin-bottom:20px;
+    width:100%;
+}
+
+.kpi-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:14px 16px;
+    min-width:0;
+}
+.kpi-card .label{
+    font-size:10px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    margin-bottom:4px;
+}
+.kpi-card .value{
+    font-size:16px;
+    font-weight:700;
+    color:var(--white);
+    display:flex;
+    align-items:center;
+    gap:4px;
+    white-space:nowrap;
+    flex-wrap:nowrap;
+    min-width:0;
+}
+.kpi-card .badge{
+    font-size:11px;
+    font-weight:600;
+    padding:1px 6px;
+    border-radius:3px;
+    flex-shrink:0;
+}
 .kpi-card .badge.up{background:rgba(34,139,90,.2);color:#2ba86a}
-.kpi-card .badge.down{background:rgba(186,117,23,.2);color:#ba7517}
+.kpi-card .badge.down{background:rgba(186,117,23,.2);color:var(--orange)}
 .kpi-card .badge.red{background:rgba(163,45,45,.2);color:#c44040}
-.kpi-card .sub{font-size:10px;color:#666;margin-top:2px}
-.charts-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
-.chart-box{background:#1e1e1e;border:1px solid #2a2a2a;border-radius:8px;padding:16px}
-.chart-box h3{font-size:13px;font-weight:600;color:#ccc;margin-bottom:12px}
+.kpi-card .sub{font-size:10px;color:var(--muted-2);margin-top:2px}
+
+.charts-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin-bottom:20px;
+    width:100%;
+}
+
+.chart-box{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:16px;
+    min-width:0;
+}
+.chart-box h3{
+    font-size:13px;
+    font-weight:600;
+    color:#ccc;
+    margin-bottom:14px;
+}
 .chart-box.full{grid-column:1/-1}
-.cc{position:relative;width:100%;max-width:280px;margin:0 auto}
-.cc.bc{max-width:100%}
-.table-box{background:#1e1e1e;border:1px solid #2a2a2a;border-radius:8px;padding:16px;overflow-x:auto;margin-bottom:20px}
+
+.donut-wrap{
+    width:min(100%, 360px);
+    aspect-ratio:1 / 1;
+    margin:0 auto;
+    position:relative;
+}
+.donut-wrap canvas{
+    position:absolute;
+    inset:0;
+    width:100% !important;
+    height:100% !important;
+}
+
+.bar-wrap{
+    width:100%;
+    height:340px;
+    position:relative;
+}
+.bar-wrap.tall{
+    height:380px;
+}
+.bar-wrap canvas{
+    position:absolute;
+    inset:0;
+    width:100% !important;
+    height:100% !important;
+}
+
+.table-box,.eb,.ec{
+    min-width:0;
+}
+
+.table-box{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:16px;
+    overflow-x:auto;
+    margin-bottom:20px;
+}
 .table-box h3{font-size:13px;font-weight:600;color:#ccc;margin-bottom:10px}
-table{width:100%;border-collapse:collapse;font-size:11px}
-thead th{background:#252525;color:#888;font-weight:600;text-transform:uppercase;letter-spacing:.5px;padding:8px 10px;text-align:center;position:sticky;top:0;white-space:nowrap;font-size:10px}
-tbody tr{border-bottom:1px solid #2a2a2a;transition:.15s}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:11px;
+}
+thead th{
+    background:#252525;
+    color:var(--muted);
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    padding:8px 10px;
+    text-align:center;
+    position:sticky;
+    top:0;
+    white-space:nowrap;
+    font-size:10px;
+}
+tbody tr{border-bottom:1px solid var(--border);transition:.15s}
 tbody tr:hover{background:rgba(255,255,255,.03)}
 tbody td{padding:7px 10px;white-space:nowrap;color:#bbb;text-align:center}
-tbody td a.vl{color:#0b4ea2;text-decoration:none;font-weight:600;background:rgba(11,78,162,.1);padding:2px 8px;border-radius:3px;font-size:10px}
+tbody td a.vl{
+    color:var(--blue);
+    text-decoration:none;
+    font-weight:600;
+    background:rgba(11,78,162,.1);
+    padding:2px 8px;
+    border-radius:3px;
+    font-size:10px;
+}
 tbody td a.vl:hover{background:rgba(11,78,162,.25);color:#3a8cef}
-tbody td .vt{color:#888;font-size:10px;font-style:italic}
-.sb{padding:2px 8px;border-radius:3px;font-size:10px;font-weight:600;display:inline-block}
+tbody td .vt{color:var(--muted);font-size:10px;font-style:italic}
+
+.sb{
+    padding:2px 8px;
+    border-radius:3px;
+    font-size:10px;
+    font-weight:600;
+    display:inline-block;
+}
 .sb.aprovado{background:rgba(34,139,90,.18);color:#2ba86a}
-.sb.em-aprovacao{background:rgba(186,117,23,.18);color:#ba7517}
+.sb.em-aprovacao{background:rgba(186,117,23,.18);color:var(--orange)}
 .sb.recusado{background:rgba(163,45,45,.18);color:#c44040}
+
 .tab-content{display:none}
 .tab-content.active{display:block}
-.eb{background:#1e1e1e;border:1px solid #2a2a2a;border-radius:8px;padding:16px;margin-bottom:20px;display:flex;gap:16px;flex-wrap:wrap}
-.ec{flex:1;min-width:200px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;padding:14px 16px}
-.ec .el{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+
+.eb{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:16px;
+    margin-bottom:20px;
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+}
+.ec{
+    flex:1;
+    min-width:200px;
+    background:var(--panel-2);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:14px 16px;
+}
+.ec .el{
+    font-size:10px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    margin-bottom:4px;
+}
 .ec .ev{font-size:20px;font-weight:700}
-.ec .ev.green{color:#228b5a}
-.ec .ev.red{color:#a32d2d}
-.ec .ev.white{color:#fff}
-.ec .es{font-size:10px;color:#666;margin-top:2px}
+.ec .ev.green{color:var(--green)}
+.ec .ev.red{color:var(--red)}
+.ec .ev.white{color:var(--white)}
+.ec .es{font-size:10px;color:var(--muted-2);margin-top:2px}
+
 ::-webkit-scrollbar{width:5px;height:5px}
-::-webkit-scrollbar-track{background:#121212}
+::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:#333;border-radius:3px}
-@media(max-width:1400px){.kpi-row{grid-template-columns:repeat(4,1fr)}}
-@media(max-width:1200px){.nav-bar{height:auto;flex-wrap:wrap;padding:6px 24px}.tabs-left{width:100%;height:36px}.filters-right{width:100%;padding:4px 0;flex-wrap:wrap;margin-left:0}}
-@media(max-width:700px){.charts-row{grid-template-columns:1fr}.kpi-row{grid-template-columns:repeat(2,1fr)}.content{padding:12px}}
+
+@media(max-width:1400px){
+    .kpi-row{grid-template-columns:repeat(4,1fr)}
+}
+
+@media(max-width:1200px){
+    .nav-bar{
+        height:auto;
+        flex-wrap:wrap;
+        padding:6px 14px;
+        overflow:visible;
+    }
+
+    .tabs-left{
+        width:100%;
+        height:36px;
+    }
+
+    .filters-right{
+        width:100%;
+        padding:4px 0;
+        flex-wrap:wrap;
+        margin-left:0;
+        justify-content:flex-start;
+    }
+
+    .charts-row{
+        grid-template-columns:1fr;
+    }
+
+    .kpi-row{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .bar-wrap{
+        height:300px;
+    }
+
+    .bar-wrap.tall{
+        height:340px;
+    }
+}
+
+@media(max-width:700px){
+    .content{padding:12px}
+    .kpi-row{grid-template-columns:1fr}
+    .donut-wrap{width:min(100%,280px)}
+    .bar-wrap{height:260px}
+    .bar-wrap.tall{height:300px}
+}
 </style>
 </head>
 <body>
 <div class="header"><h1>Dashboard REMAN — Follow Up de Pedidos<span>Valores em R$</span></h1></div>
+
 <div class="nav-bar">
-<div class="tabs-left">
-<div class="tab active" data-tab="resumo"><span class="dot green"></span> Gerencial</div>
-<div class="tab" data-tab="detalhamento"><span class="dot blue"></span> Detalhamento</div>
-<div class="tab" data-tab="fornecedores"><span class="dot orange"></span> Fornecedores</div>
-</div>
-<div class="filters-right" id="fBar"></div>
-</div>
-
-<div id="tab-resumo" class="tab-content active"><div class="content">
-<div class="section-title">KPIs — RESUMO EXECUTIVO</div>
-<div class="month-label" id="mesLabel"></div>
-<div class="kpi-row" id="kpiRow"></div>
-
-<div class="section-title">VISÃO GERAL</div>
-<div class="charts-row">
-<div class="chart-box"><h3>Valor por Status</h3><div class="cc"><canvas id="cS"></canvas></div></div>
-<div class="chart-box"><h3>Valor por Tipo de Serviço</h3><div class="cc"><canvas id="cT"></canvas></div></div>
+    <div class="tabs-left">
+        <div class="tab active" data-tab="resumo"><span class="dot green"></span> Gerencial</div>
+        <div class="tab" data-tab="detalhamento"><span class="dot blue"></span> Detalhamento</div>
+        <div class="tab" data-tab="fornecedores"><span class="dot orange"></span> Fornecedores</div>
+    </div>
+    <div class="filters-right" id="fBar"></div>
 </div>
 
-<div class="section-title">EVOLUÇÃO POR SOLICITANTE</div>
-<div class="charts-row">
-<div class="chart-box"><h3>Pedidos por Solicitante — Qtd</h3><div class="cc bc"><canvas id="cSQ"></canvas></div></div>
-<div class="chart-box"><h3>Valor Total por Solicitante</h3><div class="cc bc"><canvas id="cSV"></canvas></div></div>
+<div id="tab-resumo" class="tab-content active">
+    <div class="content">
+        <div class="section-title">KPIs — RESUMO EXECUTIVO</div>
+        <div class="month-label" id="mesLabel"></div>
+        <div class="kpi-row" id="kpiRow"></div>
+
+        <div class="section-title">VISÃO GERAL</div>
+        <div class="charts-row">
+            <div class="chart-box">
+                <h3>Valor por Status</h3>
+                <div class="donut-wrap"><canvas id="cS"></canvas></div>
+            </div>
+            <div class="chart-box">
+                <h3>Valor por Tipo de Serviço</h3>
+                <div class="donut-wrap"><canvas id="cT"></canvas></div>
+            </div>
+        </div>
+
+        <div class="section-title">EVOLUÇÃO POR SOLICITANTE</div>
+        <div class="charts-row">
+            <div class="chart-box">
+                <h3>Pedidos por Solicitante — Qtd</h3>
+                <div class="bar-wrap"><canvas id="cSQ"></canvas></div>
+            </div>
+            <div class="chart-box">
+                <h3>Valor Total por Solicitante</h3>
+                <div class="bar-wrap"><canvas id="cSV"></canvas></div>
+            </div>
+        </div>
+
+        <div class="section-title">TOP FORNECEDORES POR VALOR</div>
+        <div class="charts-row">
+            <div class="chart-box full">
+                <h3>Ranking de Fornecedores (R$)</h3>
+                <div class="bar-wrap tall"><canvas id="cFR"></canvas></div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="section-title">TOP FORNECEDORES POR VALOR</div>
-<div class="charts-row">
-<div class="chart-box full"><h3>Ranking de Fornecedores (R$)</h3><div class="cc bc"><canvas id="cFR"></canvas></div></div>
-</div></div></div>
+<div id="tab-detalhamento" class="tab-content">
+    <div class="content">
+        <div class="section-title">ANÁLISE DE ECONOMIA — COTAÇÕES</div>
+        <div class="eb" id="eBox"></div>
 
-<div id="tab-detalhamento" class="tab-content"><div class="content">
-<div class="section-title">ANÁLISE DE ECONOMIA — COTAÇÕES</div>
-<div class="eb" id="eBox"></div>
+        <div class="section-title">TABELA COMPLETA — FOLLOW UP</div>
+        <div class="table-box">
+            <h3>Todos os pedidos <span id="cL" style="color:#666;font-weight:400"></span></h3>
+            <div style="max-height:600px;overflow-y:auto">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Vuupt</th><th>Data</th><th>Pedido</th><th>Requisição</th><th>Status</th><th>Enviado?</th><th>NF</th><th>1° Aprov.</th><th>2° Aprov.</th><th>Fornecedor</th><th>Tipo</th><th>Descrição</th><th>Valor</th><th>1ª Cot.</th><th>2ª Cot.</th><th>3ª Cot.</th><th>Economia</th><th>Solicitante</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tB"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
-<div class="section-title">TABELA COMPLETA — FOLLOW UP</div>
-<div class="table-box">
-<h3>Todos os pedidos <span id="cL" style="color:#666;font-weight:400"></span></h3>
-<div style="max-height:600px;overflow-y:auto"><table><thead><tr>
-<th>Vuupt</th><th>Data</th><th>Pedido</th><th>Requisição</th><th>Status</th><th>Enviado?</th><th>NF</th><th>1° Aprov.</th><th>2° Aprov.</th><th>Fornecedor</th><th>Tipo</th><th>Descrição</th><th>Valor</th><th>1ª Cot.</th><th>2ª Cot.</th><th>3ª Cot.</th><th>Economia</th><th>Solicitante</th>
-</tr></thead><tbody id="tB"></tbody></table></div></div></div></div>
+<div id="tab-fornecedores" class="tab-content">
+    <div class="content">
+        <div class="section-title">ANÁLISE POR FORNECEDOR</div>
+        <div class="kpi-row" id="fKpi" style="grid-template-columns:repeat(3,1fr)"></div>
 
-<div id="tab-fornecedores" class="tab-content"><div class="content">
-<div class="section-title">ANÁLISE POR FORNECEDOR</div>
-<div class="kpi-row" id="fKpi" style="grid-template-columns:repeat(3,1fr)"></div>
-<div class="table-box"><h3>Resumo por Fornecedor</h3>
-<div style="max-height:500px;overflow-y:auto"><table><thead><tr><th>Fornecedor</th><th>Qtd</th><th>Valor Total (R$)</th><th>Ticket Médio (R$)</th><th>% Total</th></tr></thead><tbody id="tF"></tbody></table></div></div>
+        <div class="table-box">
+            <h3>Resumo por Fornecedor</h3>
+            <div style="max-height:500px;overflow-y:auto">
+                <table>
+                    <thead>
+                        <tr><th>Fornecedor</th><th>Qtd</th><th>Valor Total (R$)</th><th>Ticket Médio (R$)</th><th>% Total</th></tr>
+                    </thead>
+                    <tbody id="tF"></tbody>
+                </table>
+            </div>
+        </div>
 
-<div class="section-title">COTAÇÕES — COMPARATIVO</div>
-<div class="charts-row"><div class="chart-box full"><h3>Comparativo 1ª vs 2ª vs 3ª Cotação</h3><div class="cc bc"><canvas id="cCot"></canvas></div></div></div>
-</div></div>
+        <div class="section-title">COTAÇÕES — COMPARATIVO</div>
+        <div class="charts-row">
+            <div class="chart-box full">
+                <h3>Comparativo 1ª vs 2ª vs 3ª Cotação</h3>
+                <div class="bar-wrap tall"><canvas id="cCot"></canvas></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <script>
-const D=[{"data":46113,"mes":"ABRIL","mesAno":"202604","pedido":"4500246083","requisicao":"200138608","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"PAVONI","tipo":"PEÇAS","descricao":"PEÇAS FREIO ESTACIONARIO 544 PA00695","valor":6847.51,"cot1":6847.51,"cot2":16970.36,"cot3":0.0,"vuupt":"","solicitante":"LEONARDO"},{"data":46113,"mes":"ABRIL","mesAno":"202604","pedido":"4500246096","requisicao":"200138608","status":"APROVADO","enviado":"SIM","nf":"12667","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TERRA VERDE","tipo":"PEÇAS","descricao":"PEÇAS FREIO ESTACIONARIO 544 PA00695","valor":1802.912,"cot1":3736.7400000000002,"cot2":1802.912,"cot3":0.0,"vuupt":"https://app.vuupt.com/manager/orders/48064309","solicitante":"LEONARDO"},{"data":46113,"mes":"ABRIL","mesAno":"202604","pedido":"4500246068","requisicao":"600007338","status":"APROVADO","enviado":"SIM","nf":"12681","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TERRA VERDE","tipo":"ESTOQUE","descricao":"COMPRA DE PEÇAS PARA ESTOQUE","valor":4707.32,"cot1":4707.32,"cot2":0.0,"cot3":0.0,"vuupt":"https://app.vuupt.com/manager/orders/48064309","solicitante":"VANESSA"},{"data":46113,"mes":"ABRIL","mesAno":"202604","pedido":"4500246049","requisicao":"200138646","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"MACIH","tipo":"SERVIÇO","descricao":"SERVIÇO DE RECONDICIONAMENTO DE CILINDRO","valor":3685.0,"cot1":3685.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"LEONARDO"},{"data":46113,"mes":"ABRIL","mesAno":"202604","pedido":"4500246073","requisicao":"200138680","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"GENERAL DIESEL","tipo":"SERVIÇO","descricao":"SERVIÇO RECONDICIONAMENTO DE BOMBA INJETORA","valor":5136.0,"cot1":5136.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46113,"mes":"ABRIL","mesAno":"202604","pedido":"4500246128","requisicao":"200138690","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"GENERAL DIESEL","tipo":"SERVIÇO","descricao":"SERVIÇO DE TESTE DE BICO INJETOR","valor":1467.2,"cot1":1467.2,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246306","requisicao":"200138720","status":"APROVADO","enviado":"SIM","nf":"3534","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"PIRAJA/GTOR","tipo":"PEÇAS","descricao":"PEÇA REPARO DO CUBO L110 VOLVO PA00481","valor":1100.0,"cot1":1050.0,"cot2":1100.0,"cot3":2756.15,"vuupt":"","solicitante":"LEONARDO"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246394","requisicao":"200138738","status":"APROVADO","enviado":"SIM","nf":"13595","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"BRASIL VEDAÇÕES","tipo":"PEÇAS","descricao":"REPARO CILINDRO DE ELEVAÇÃO 524K E 724K JOHN DEERE","valor":643.0,"cot1":643.0,"cot2":0.0,"cot3":0.0,"vuupt":"https://app.vuupt.com/manager/orders/48135164","solicitante":"LEONARDO"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246394","requisicao":"200138740","status":"APROVADO","enviado":"SIM","nf":"13595","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"BRASIL VEDAÇÕES","tipo":"PEÇAS","descricao":"REPARO CILINDRO DE ELEVAÇÃO 524K E 724K JOHN DEERE","valor":643.0,"cot1":643.0,"cot2":0.0,"cot3":0.0,"vuupt":"https://app.vuupt.com/manager/orders/48135164","solicitante":"LEONARDO"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246394","requisicao":"200138736","status":"APROVADO","enviado":"SIM","nf":"13595","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"BRASIL VEDAÇÕES","tipo":"PEÇAS","descricao":"REPARO CILINDRO DE ELEVAÇÃO 524K E 724K JOHN DEERE","valor":345.0,"cot1":345.0,"cot2":0.0,"cot3":0.0,"vuupt":"https://app.vuupt.com/manager/orders/48135164","solicitante":"LEONARDO"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246335","requisicao":"600007347","status":"APROVADO","enviado":"SIM","nf":"12800","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TERRAVERDE","tipo":"PEÇAS","descricao":"RETENTOR|RE542195|JOHN DEERE","valor":2261.48,"cot1":2261.48,"cot2":0.0,"cot3":0.0,"vuupt":"https://app.vuupt.com/manager/orders/48180748","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246481 ","requisicao":"200136119","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"ARTHUR ALVES","aprov2":"GILSON OSEAS","fornecedor":"RETIFORT","tipo":"SERVIÇO","descricao":"SERVIÇO DE RETIFICA","valor":8056.0,"cot1":8056.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246507","requisicao":"200130560","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"ARTHUR ALVES","aprov2":"","fornecedor":"RETIFORT","tipo":"SERVIÇO","descricao":"SERVIÇO DE RETIFICA","valor":4416.0,"cot1":4416.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246415","requisicao":"200138189","status":"APROVADO","enviado":"SIM","nf":"12729","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TERRAVERDE","tipo":"PEÇAS","descricao":"SELO|CD16284|JOHN DEERE","valor":189.4,"cot1":189.4,"cot2":0.0,"cot3":0.0,"vuupt":"https://app.vuupt.com/manager/orders/48132766","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246459","requisicao":"10012103","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"EASY BUY","tipo":"FERRAMENTAS","descricao":"COMPRA DE PLASTIFICADORA","valor":474.37,"cot1":474.37,"cot2":0.0,"cot3":0.0,"vuupt":"Entrega pelo fornecedor","solicitante":"LEONARDO"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246741","requisicao":"200093927","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"SCM","tipo":"PEÇAS","descricao":"VIRABREQUIM|VOE21351237|VOLVO D6","valor":10522.16,"cot1":9116.25,"cot2":12900.0,"cot3":10522.16,"vuupt":"","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246528","requisicao":"200138829","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TECNOTURBO","tipo":"SERVIÇO","descricao":" SERVICO DE RECONDICIONAMENTO DE TURBINA","valor":3970.0,"cot1":3970.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246675","requisicao":"200137620","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"GILSON OSEAS","fornecedor":"RETIFORT","tipo":"SERVIÇO","descricao":"SERVIÇO DE RETIFICA","valor":20169.0,"cot1":20169.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46118,"mes":"ABRIL","mesAno":"202604","pedido":"4500246918","requisicao":"400036898","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"A C DE","tipo":"PEÇAS","descricao":"COMPRA DE VÁLVULA","valor":599.0,"cot1":599.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"ROGERIO"},{"data":46118,"mes":"ABRIL","mesAno":"202604","pedido":"4500246941","requisicao":"400036895","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"GATES","tipo":"PEÇAS","descricao":"COMPRA DE MANGUEIRAS HIDRAÚLICAS","valor":13953.57,"cot1":13953.57,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"ROGERIO"},{"data":46118,"mes":"ABRIL","mesAno":"202604","pedido":"4500246944","requisicao":"400036897","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"GATES","tipo":"PEÇAS","descricao":"COMPRA DE TERMINAIS HIDRÁULICOS","valor":4840.46,"cot1":4840.46,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"ROGERIO"},{"data":46119,"mes":"ABRIL","mesAno":"202604","pedido":"4500247201","requisicao":"600007388","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"GILSON OSEAS","fornecedor":"JAVA DIESEL","tipo":"ESTOQUE","descricao":"COMPRA DE PEÇAS PARA O SETOR DE INJEÇÃO","valor":13610.36,"cot1":13610.36,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46119,"mes":"ABRIL","mesAno":"202604","pedido":"4500247245","requisicao":"600007389","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"GILSON OSEAS","fornecedor":"RP DIESEL","tipo":"ESTOQUE","descricao":"COMPRA DE PEÇAS PARA O SETOR DE INJEÇÃO","valor":15799.62,"cot1":15799.62,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46120,"mes":"ABRIL","mesAno":"202604","pedido":"4500247560","requisicao":"400036935","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"RHFIX","tipo":"PEÇAS","descricao":"COMPRA DE PEÇAS PARA O SETOR DE MANGUEIRAS","valor":500.0,"cot1":500.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"ROGERIO"},{"data":46120,"mes":"ABRIL","mesAno":"202604","pedido":"4500247603","requisicao":"600007401","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"EASY BUY","tipo":"ESTOQUE","descricao":"COMPRA DE COLA LACTITE PARA ESTOQUE","valor":1417.5,"cot1":1417.5,"cot2":0.0,"cot3":0.0,"vuupt":"Entrega pelo fornecedor","solicitante":"VANESSA"},{"data":46120,"mes":"ABRIL","mesAno":"202604","pedido":"4500247638","requisicao":"600007402","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TERRAVERDE","tipo":"ESTOQUE","descricao":"COMPRA DE PEÇAS PARA ESTOQUE","valor":3037.8,"cot1":3037.8,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46120,"mes":"ABRIL","mesAno":"202604","pedido":"4500247687","requisicao":"200139280","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TERRAVERDE","tipo":"PEÇAS","descricao":"COMPRA DE ORIFICIOS","valor":1016.16,"cot1":1016.16,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"}];
+const D=[{"data":46113,"mes":"ABRIL","mesAno":"202604","pedido":"4500246083","requisicao":"200138608","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"PAVONI","tipo":"PEÇAS","descricao":"PEÇAS FREIO ESTACIONARIO 544 PA00695","valor":6847.51,"cot1":6847.51,"cot2":16970.36,"cot3":0.0,"vuupt":"","solicitante":"LEONARDO"},{"data":46113,"mes":"ABRIL","mesAno":"202604","pedido":"4500246096","requisicao":"200138608","status":"APROVADO","enviado":"SIM","nf":"12667","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TERRAVERDE","tipo":"PEÇAS","descricao":"PEÇAS FREIO ESTACIONARIO 544 PA00695","valor":1802.912,"cot1":3736.74,"cot2":1802.912,"cot3":0.0,"vuupt":"https://app.vuupt.com/manager/orders/48064309","solicitante":"LEONARDO"},{"data":46113,"mes":"ABRIL","mesAno":"202604","pedido":"4500246068","requisicao":"600007338","status":"APROVADO","enviado":"SIM","nf":"12681","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TERRAVERDE","tipo":"ESTOQUE","descricao":"COMPRA DE PEÇAS PARA ESTOQUE","valor":4707.32,"cot1":4707.32,"cot2":0.0,"cot3":0.0,"vuupt":"https://app.vuupt.com/manager/orders/48064309","solicitante":"VANESSA"},{"data":46113,"mes":"ABRIL","mesAno":"202604","pedido":"4500246049","requisicao":"200138646","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"MACIH","tipo":"SERVIÇO","descricao":"SERVIÇO DE RECONDICIONAMENTO DE CILINDRO","valor":3685.0,"cot1":3685.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"LEONARDO"},{"data":46113,"mes":"ABRIL","mesAno":"202604","pedido":"4500246073","requisicao":"200138680","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"GENERAL DIESEL","tipo":"SERVIÇO","descricao":"SERVIÇO RECONDICIONAMENTO DE BOMBA INJETORA","valor":5136.0,"cot1":5136.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46113,"mes":"ABRIL","mesAno":"202604","pedido":"4500246128","requisicao":"200138690","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"GENERAL DIESEL","tipo":"SERVIÇO","descricao":"SERVIÇO DE TESTE DE BICO INJETOR","valor":1467.2,"cot1":1467.2,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246306","requisicao":"200138720","status":"APROVADO","enviado":"SIM","nf":"3534","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"PIRAJA/GTOR","tipo":"PEÇAS","descricao":"PEÇA REPARO DO CUBO L110 VOLVO PA00481","valor":1100.0,"cot1":1050.0,"cot2":1100.0,"cot3":2756.15,"vuupt":"","solicitante":"LEONARDO"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246394","requisicao":"200138738","status":"APROVADO","enviado":"SIM","nf":"13595","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"BRASIL VEDAÇÕES","tipo":"PEÇAS","descricao":"REPARO CILINDRO DE ELEVAÇÃO 524K E 724K JOHN DEERE","valor":643.0,"cot1":643.0,"cot2":0.0,"cot3":0.0,"vuupt":"https://app.vuupt.com/manager/orders/48135164","solicitante":"LEONARDO"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246394","requisicao":"200138740","status":"APROVADO","enviado":"SIM","nf":"13595","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"BRASIL VEDAÇÕES","tipo":"PEÇAS","descricao":"REPARO CILINDRO DE ELEVAÇÃO 524K E 724K JOHN DEERE","valor":643.0,"cot1":643.0,"cot2":0.0,"cot3":0.0,"vuupt":"https://app.vuupt.com/manager/orders/48135164","solicitante":"LEONARDO"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246394","requisicao":"200138736","status":"APROVADO","enviado":"SIM","nf":"13595","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"BRASIL VEDAÇÕES","tipo":"PEÇAS","descricao":"REPARO CILINDRO DE ELEVAÇÃO 524K E 724K JOHN DEERE","valor":345.0,"cot1":345.0,"cot2":0.0,"cot3":0.0,"vuupt":"https://app.vuupt.com/manager/orders/48135164","solicitante":"LEONARDO"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246335","requisicao":"600007347","status":"APROVADO","enviado":"SIM","nf":"12800","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TERRAVERDE","tipo":"PEÇAS","descricao":"RETENTOR|RE542195|JOHN DEERE","valor":2261.48,"cot1":2261.48,"cot2":0.0,"cot3":0.0,"vuupt":"https://app.vuupt.com/manager/orders/48180748","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246481 ","requisicao":"200136119","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"ARTHUR ALVES","aprov2":"GILSON OSEAS","fornecedor":"RETIFORT","tipo":"SERVIÇO","descricao":"SERVIÇO DE RETIFICA","valor":8056.0,"cot1":8056.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246507","requisicao":"200130560","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"ARTHUR ALVES","aprov2":"","fornecedor":"RETIFORT","tipo":"SERVIÇO","descricao":"SERVIÇO DE RETIFICA","valor":4416.0,"cot1":4416.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246415","requisicao":"200138189","status":"APROVADO","enviado":"SIM","nf":"12729","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TERRAVERDE","tipo":"PEÇAS","descricao":"SELO|CD16284|JOHN DEERE","valor":189.4,"cot1":189.4,"cot2":0.0,"cot3":0.0,"vuupt":"https://app.vuupt.com/manager/orders/48132766","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246459","requisicao":"10012103","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"EASY BUY","tipo":"FERRAMENTAS","descricao":"COMPRA DE PLASTIFICADORA","valor":474.37,"cot1":474.37,"cot2":0.0,"cot3":0.0,"vuupt":"Entrega pelo fornecedor","solicitante":"LEONARDO"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246741","requisicao":"200093927","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"SCM","tipo":"PEÇAS","descricao":"VIRABREQUIM|VOE21351237|VOLVO D6","valor":10522.16,"cot1":9116.25,"cot2":12900.0,"cot3":10522.16,"vuupt":"Entrega pelo fornecedor","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246528","requisicao":"200138829","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TECNOTURBO","tipo":"SERVIÇO","descricao":" SERVICO DE RECONDICIONAMENTO DE TURBINA","valor":3970.0,"cot1":3970.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246675","requisicao":"200137620","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"GILSON OSEAS","fornecedor":"RETIFORT","tipo":"SERVIÇO","descricao":"SERVIÇO DE RETIFICA","valor":20169.0,"cot1":20169.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46118,"mes":"ABRIL","mesAno":"202604","pedido":"4500246918","requisicao":"400036898","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"A C DE","tipo":"PEÇAS","descricao":"COMPRA DE VÁLVULA","valor":599.0,"cot1":599.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"ROGERIO"},{"data":46118,"mes":"ABRIL","mesAno":"202604","pedido":"4500246941","requisicao":"400036895","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"GATES","tipo":"PEÇAS","descricao":"COMPRA DE MANGUEIRAS HIDRAÚLICAS","valor":13953.57,"cot1":13953.57,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"ROGERIO"},{"data":46118,"mes":"ABRIL","mesAno":"202604","pedido":"4500246944","requisicao":"400036897","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"GATES","tipo":"PEÇAS","descricao":"COMPRA DE TERMINAIS HIDRÁULICOS","valor":4840.46,"cot1":4840.46,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"ROGERIO"},{"data":46118,"mes":"ABRIL","mesAno":"202604","pedido":"4500246904","requisicao":"400036898","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"EASY BUY","tipo":"PEÇAS","descricao":"VALVULA|RE572088|JOHN DEERE","valor":599.0,"cot1":599.0,"cot2":0.0,"cot3":0.0,"vuupt":"Entrega pelo fornecedor","solicitante":"ROGERIO"},{"data":46119,"mes":"ABRIL","mesAno":"202604","pedido":"4500247201","requisicao":"600007388","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"JAVA DIESEL","tipo":"ESTOQUE","descricao":"COMPRA DE PEÇAS PARA O SETOR DE INJEÇÃO","valor":13610.36,"cot1":13610.36,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46119,"mes":"ABRIL","mesAno":"202604","pedido":"4500247245","requisicao":"600007389","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"GILSON OSEAS","fornecedor":"RP DIESEL","tipo":"ESTOQUE","descricao":"COMPRA DE PEÇAS PARA O SETOR DE INJEÇÃO","valor":15799.62,"cot1":15799.62,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46120,"mes":"ABRIL","mesAno":"202604","pedido":"4500247560","requisicao":"400036935","status":"APROVADO","enviado":"SIM","nf":"719","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"RHFIX","tipo":"PEÇAS","descricao":"COMPRA DE PEÇAS PARA O SETOR DE MANGUEIRAS","valor":500.0,"cot1":500.0,"cot2":0.0,"cot3":0.0,"vuupt":"https://app.vuupt.com/manager/orders/48247771","solicitante":"ROGERIO"},{"data":46120,"mes":"ABRIL","mesAno":"202604","pedido":"4500247603","requisicao":"600007401","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"EASY BUY","tipo":"ESTOQUE","descricao":"COMPRA DE COLA LACTITE PARA ESTOQUE","valor":1417.5,"cot1":1417.5,"cot2":0.0,"cot3":0.0,"vuupt":"Entrega pelo fornecedor","solicitante":"VANESSA"},{"data":46120,"mes":"ABRIL","mesAno":"202604","pedido":"4500247638","requisicao":"600007402","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TERRAVERDE","tipo":"ESTOQUE","descricao":"COMPRA DE PEÇAS PARA ESTOQUE","valor":3037.8,"cot1":3037.8,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46120,"mes":"ABRIL","mesAno":"202604","pedido":"4500247687","requisicao":"200139280","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TERRAVERDE","tipo":"PEÇAS","descricao":"COMPRA DE ORIFICIOS","valor":1016.16,"cot1":1016.16,"cot2":1800.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46120,"mes":"ABRIL","mesAno":"202604","pedido":"4500247754","requisicao":"200139321","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"RETIFORT","tipo":"SERVIÇO","descricao":"RETIFICA DE CABEÇOTE","valor":3230.0,"cot1":3230.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46120,"mes":"ABRIL","mesAno":"202604","pedido":"","requisicao":"","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"","tipo":"PEÇAS","descricao":"COMPRA DE BOMBA INJETORA","valor":0.0,"cot1":0.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46120,"mes":"ABRIL","mesAno":"202604","pedido":"4500247796","requisicao":"10012104","status":"APROVADO","enviado":"SIM","nf":"5153","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"SENA ROLAMENTOS","tipo":"PEÇAS","descricao":"ROLAMENTO|60032RS","valor":225.0,"cot1":492.57,"cot2":225.0,"cot3":0.0,"vuupt":"https://app.vuupt.com/manager/orders/48248019","solicitante":"LEONARDO"},{"data":46121,"mes":"ABRIL","mesAno":"202604","pedido":"","requisicao":"200139241","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"","tipo":"PEÇAS","descricao":"PEÇAS EIXO TRASEIRO RE00511 JCB","valor":0.0,"cot1":0.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"LEONARDO"}];
 
 const isR=s=>s==='RECUSADO'||s==='REPROVADO';
 const sCol=s=>s==='APROVADO'?'#228b5a':s==='EM APROVAÇÃO'?'#ba7517':isR(s)?'#a32d2d':'#555';
@@ -172,10 +591,16 @@ FL.forEach(f=>fv[f.k]='');
 function bF(){
 const bar=document.getElementById('fBar');
 FL.forEach((f,i)=>{
-if(i>0){const s=document.createElement('div');s.className='fs';bar.appendChild(s)}
-const g=document.createElement('div');g.className='fg';
-g.innerHTML='<label>'+f.l+'</label><div class="fw"><input type="text" class="fi" id="'+f.id+'" placeholder="Todos" autocomplete="off" style="width:'+f.w+'px"><button class="fc" id="'+f.id+'C">&times;</button></div><div class="fd" id="'+f.id+'D"></div>';
-bar.appendChild(g)});
+if(i>0){
+const s=document.createElement('div');
+s.className='fs';
+bar.appendChild(s)
+}
+const g=document.createElement('div');
+g.className='fg';
+g.innerHTML='<label>'+f.l+'</label><div class="fw"><input type="text" class="fi" id="'+f.id+'" placeholder="Todos" autocomplete="off" style="width:'+f.w+'px"><button class="fc" id="'+f.id+'C">&times;</button><div class="fd" id="'+f.id+'D"></div></div>';
+bar.appendChild(g)
+});
 const b=document.createElement('button');
 b.className='bl';
 b.textContent='Limpar filtros';
@@ -190,7 +615,12 @@ i.addEventListener('keydown',e=>{if(e.key==='Escape'){d.classList.remove('show')
 c.addEventListener('click',()=>{fv[f.k]='';i.value='';c.style.display='none';aF()})
 });
 
-document.addEventListener('click',e=>{FL.forEach(f=>{const g=document.getElementById(f.id).closest('.fg');if(!g.contains(e.target))document.getElementById(f.id+'D').classList.remove('show')})})
+document.addEventListener('click',e=>{
+FL.forEach(f=>{
+const g=document.getElementById(f.id).closest('.fg');
+if(!g.contains(e.target))document.getElementById(f.id+'D').classList.remove('show')
+})
+})
 }
 
 function sD(f){
@@ -199,16 +629,45 @@ const q=i.value.toLowerCase().trim();
 const a=[...new Set(D.map(r=>r[f.k]).filter(Boolean))].sort();
 const m=q?a.filter(v=>v.toLowerCase().includes(q)):a;
 let h='<div class="fo all" data-v="">✕ Limpar</div>';
-m.forEach(v=>{const n=D.filter(r=>r[f.k]===v).length;h+='<div class="fo'+(fv[f.k]===v?' active':'')+'" data-v="'+v+'">'+v+'<span class="fn">('+n+')</span></div>'});
+m.forEach(v=>{
+const n=D.filter(r=>r[f.k]===v).length;
+h+='<div class="fo'+(fv[f.k]===v?' active':'')+'" data-v="'+v+'">'+v+'<span class="fn">('+n+')</span></div>'
+});
 if(!m.length)h+='<div style="padding:6px 10px;color:#444;font-size:10px">Sem resultados</div>';
-d.innerHTML=h;d.classList.add('show');
-d.querySelectorAll('.fo').forEach(o=>{o.addEventListener('click',()=>{const v=o.dataset.v;fv[f.k]=v;i.value=v;document.getElementById(f.id+'C').style.display=v?'block':'none';d.classList.remove('show');aF()})})
+d.innerHTML=h;
+d.classList.add('show');
+d.querySelectorAll('.fo').forEach(o=>{
+o.addEventListener('click',()=>{
+const v=o.dataset.v;
+fv[f.k]=v;
+i.value=v;
+document.getElementById(f.id+'C').style.display=v?'block':'none';
+d.classList.remove('show');
+aF()
+})
+})
 }
 
 let fi=[...D];
 
-function aF(){fi=D.filter(r=>{for(const f of FL){if(fv[f.k]&&r[f.k]!==fv[f.k])return false}return true});re()}
-function lF(){FL.forEach(f=>{fv[f.k]='';document.getElementById(f.id).value='';document.getElementById(f.id+'C').style.display='none'});aF()}
+function aF(){
+fi=D.filter(r=>{
+for(const f of FL){
+if(fv[f.k]&&r[f.k]!==fv[f.k])return false
+}
+return true
+});
+re()
+}
+
+function lF(){
+FL.forEach(f=>{
+fv[f.k]='';
+document.getElementById(f.id).value='';
+document.getElementById(f.id+'C').style.display='none'
+});
+aF()
+}
 
 function rK(){
 const t=fi.reduce((s,r)=>s+(r.valor||0),0),q=fi.length;
@@ -240,32 +699,89 @@ Chart.defaults.borderColor='rgba(255,255,255,.06)';
 
 const bS={};
 fi.forEach(r=>{const k=r.status||'N/A';bS[k]=(bS[k]||0)+(r.valor||0)});
-gc('cS',{type:'doughnut',data:{labels:Object.keys(bS),datasets:[{data:Object.values(bS),backgroundColor:Object.keys(bS).map(sCol),borderWidth:2,borderColor:'#1e1e1e'}]},options:{responsive:true,maintainAspectRatio:true,cutout:'55%',plugins:{legend:{position:'bottom',labels:{color:'#aaa',font:{size:11},padding:12,usePointStyle:true,pointStyleWidth:8}},tooltip:{callbacks:{label:ctx=>ctx.label+': '+fm(ctx.raw)}}}}});
+gc('cS',{
+type:'doughnut',
+data:{labels:Object.keys(bS),datasets:[{data:Object.values(bS),backgroundColor:Object.keys(bS).map(sCol),borderWidth:2,borderColor:'#1e1e1e'}]},
+options:{
+responsive:true,
+maintainAspectRatio:false,
+cutout:'62%',
+plugins:{legend:{position:'bottom',labels:{color:'#aaa',font:{size:11},padding:12,usePointStyle:true,pointStyleWidth:8}},tooltip:{callbacks:{label:ctx=>ctx.label+': '+fm(ctx.raw)}}}
+}
+});
 
 const bT={};
 fi.forEach(r=>{const k=r.tipo||'Não Definido';bT[k]=(bT[k]||0)+(r.valor||0)});
-gc('cT',{type:'doughnut',data:{labels:Object.keys(bT),datasets:[{data:Object.values(bT),backgroundColor:['#0b4ea2','#a32d2d','#6b2fa0','#0e7080','#ba7517'],borderWidth:2,borderColor:'#1e1e1e'}]},options:{responsive:true,maintainAspectRatio:true,cutout:'55%',plugins:{legend:{position:'bottom',labels:{color:'#aaa',font:{size:11},padding:12,usePointStyle:true,pointStyleWidth:8}},tooltip:{callbacks:{label:ctx=>ctx.label+': '+fm(ctx.raw)}}}}});
+gc('cT',{
+type:'doughnut',
+data:{labels:Object.keys(bT),datasets:[{data:Object.values(bT),backgroundColor:['#0b4ea2','#a32d2d','#6b2fa0','#0e7080','#ba7517'],borderWidth:2,borderColor:'#1e1e1e'}]},
+options:{
+responsive:true,
+maintainAspectRatio:false,
+cutout:'62%',
+plugins:{legend:{position:'bottom',labels:{color:'#aaa',font:{size:11},padding:12,usePointStyle:true,pointStyleWidth:8}},tooltip:{callbacks:{label:ctx=>ctx.label+': '+fm(ctx.raw)}}}
+}
+});
 
 const bQ={};
 fi.forEach(r=>{const k=r.solicitante||'N/A';bQ[k]=(bQ[k]||0)+1});
 const sK=Object.keys(bQ).sort();
-gc('cSQ',{type:'bar',data:{labels:sK,datasets:[{data:sK.map(l=>bQ[l]),backgroundColor:'#0b4ea2',borderRadius:4,barThickness:28}]},options:{responsive:true,maintainAspectRatio:true,indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.raw+' pedidos'}}},scales:{x:{ticks:{color:'#888',font:{size:10}},grid:{color:'rgba(255,255,255,.04)'}},y:{ticks:{color:'#ccc',font:{size:11}},grid:{display:false}}}}});
+gc('cSQ',{
+type:'bar',
+data:{labels:sK,datasets:[{data:sK.map(l=>bQ[l]),backgroundColor:'#0b4ea2',borderRadius:4,barThickness:28}]},
+options:{
+responsive:true,
+maintainAspectRatio:false,
+indexAxis:'y',
+plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.raw+' pedidos'}}},
+scales:{x:{ticks:{color:'#888',font:{size:10}},grid:{color:'rgba(255,255,255,.04)'}},y:{ticks:{color:'#ccc',font:{size:11}},grid:{display:false}}}
+}
+});
 
 const bV={};
 fi.forEach(r=>{const k=r.solicitante||'N/A';bV[k]=(bV[k]||0)+(r.valor||0)});
-gc('cSV',{type:'bar',data:{labels:sK,datasets:[{data:sK.map(l=>bV[l]||0),backgroundColor:'#228b5a',borderRadius:4,barThickness:28}]},options:{responsive:true,maintainAspectRatio:true,indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>fm(ctx.raw)}}},scales:{x:{ticks:{color:'#888',font:{size:10},callback:v=>'R$ '+(v/1000).toFixed(0)+'k'},grid:{color:'rgba(255,255,255,.04)'}},y:{ticks:{color:'#ccc',font:{size:11}},grid:{display:false}}}}});
+gc('cSV',{
+type:'bar',
+data:{labels:sK,datasets:[{data:sK.map(l=>bV[l]||0),backgroundColor:'#228b5a',borderRadius:4,barThickness:28}]},
+options:{
+responsive:true,
+maintainAspectRatio:false,
+indexAxis:'y',
+plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>fm(ctx.raw)}}},
+scales:{x:{ticks:{color:'#888',font:{size:10},callback:v=>'R$ '+(v/1000).toFixed(0)+'k'},grid:{color:'rgba(255,255,255,.04)'}},y:{ticks:{color:'#ccc',font:{size:11}},grid:{display:false}}}
+}
+});
 
 const bf={};
 fi.forEach(r=>{const k=r.fornecedor||'Não Definido';bf[k]=(bf[k]||0)+(r.valor||0)});
 const fS=Object.entries(bf).sort((a,b)=>b[1]-a[1]);
-gc('cFR',{type:'bar',data:{labels:fS.map(f=>f[0]),datasets:[{data:fS.map(f=>f[1]),backgroundColor:fS.map((_,i)=>CL[i%CL.length]),borderRadius:4,barThickness:24}]},options:{responsive:true,maintainAspectRatio:true,indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>fm(ctx.raw)}}},scales:{x:{ticks:{color:'#888',font:{size:10},callback:v=>'R$ '+(v/1000).toFixed(0)+'k'},grid:{color:'rgba(255,255,255,.04)'}},y:{ticks:{color:'#ccc',font:{size:11}},grid:{display:false}}}}});
+gc('cFR',{
+type:'bar',
+data:{labels:fS.map(f=>f[0]),datasets:[{data:fS.map(f=>f[1]),backgroundColor:fS.map((_,i)=>CL[i%CL.length]),borderRadius:4,barThickness:24}]},
+options:{
+responsive:true,
+maintainAspectRatio:false,
+indexAxis:'y',
+plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>fm(ctx.raw)}}},
+scales:{x:{ticks:{color:'#888',font:{size:10},callback:v=>'R$ '+(v/1000).toFixed(0)+'k'},grid:{color:'rgba(255,255,255,.04)'}},y:{ticks:{color:'#ccc',font:{size:11}},grid:{display:false}}}
+}
+});
 
 const cR=fi.filter(r=>r.cot2>0||r.cot3>0);
-if(cR.length>0)gc('cCot',{type:'bar',data:{labels:cR.map(r=>(r.descricao||'').substring(0,30)),datasets:[
+if(cR.length>0)gc('cCot',{
+type:'bar',
+data:{labels:cR.map(r=>(r.descricao||'').substring(0,30)),datasets:[
 {label:'1ª Cotação',data:cR.map(r=>r.cot1||0),backgroundColor:'#0b4ea2',borderRadius:3,barThickness:20},
 {label:'2ª Cotação',data:cR.map(r=>r.cot2||0),backgroundColor:'#228b5a',borderRadius:3,barThickness:20},
 {label:'3ª Cotação',data:cR.map(r=>r.cot3||0),backgroundColor:'#a32d2d',borderRadius:3,barThickness:20}
-]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{labels:{color:'#aaa',font:{size:11},usePointStyle:true}},tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+fm(ctx.raw)}}},scales:{x:{ticks:{color:'#888',font:{size:10}},grid:{display:false}},y:{ticks:{color:'#888',font:{size:10},callback:v=>'R$ '+(v/1000).toFixed(1)+'k'},grid:{color:'rgba(255,255,255,.04)'}}}}});
+]},
+options:{
+responsive:true,
+maintainAspectRatio:false,
+plugins:{legend:{labels:{color:'#aaa',font:{size:11},usePointStyle:true}},tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+fm(ctx.raw)}}},
+scales:{x:{ticks:{color:'#888',font:{size:10}},grid:{display:false}},y:{ticks:{color:'#888',font:{size:10},callback:v=>'R$ '+(v/1000).toFixed(1)+'k'},grid:{color:'rgba(255,255,255,.04)'}}}
+}
+});
 }
 
 function rE(){
