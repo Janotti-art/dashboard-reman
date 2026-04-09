@@ -117,9 +117,7 @@ body{
     letter-spacing:.3px;
     white-space:nowrap;
 }
-.fw{
-    position:relative;
-}
+.fw{position:relative}
 .fi{
     background:#2a2a2a;
     color:#ccc;
@@ -360,6 +358,45 @@ tbody td a.vl{
 tbody td a.vl:hover{background:rgba(11,78,162,.25);color:#3a8cef}
 tbody td .vt{color:var(--muted);font-size:10px;font-style:italic}
 
+.tip-anchor{
+    cursor:help;
+    border-bottom:1px dashed rgba(255,255,255,.18);
+}
+
+.custom-tip{
+    position:fixed;
+    z-index:99999;
+    display:none;
+    pointer-events:none;
+    background:rgba(0,0,0,.96);
+    color:#fff;
+    border-radius:8px;
+    padding:8px 10px;
+    box-shadow:0 8px 22px rgba(0,0,0,.45);
+    border:1px solid rgba(255,255,255,.08);
+    font-size:12px;
+    line-height:1.35;
+    max-width:260px;
+    min-width:120px;
+}
+
+.custom-tip .tip-title{
+    font-weight:700;
+    margin-bottom:4px;
+    color:#fff;
+}
+
+.custom-tip .tip-value{
+    color:#e8e8e8;
+    font-weight:600;
+}
+
+.custom-tip .tip-note{
+    color:#bdbdbd;
+    margin-top:3px;
+    white-space:pre-line;
+}
+
 .sb{
     padding:2px 8px;
     border-radius:3px;
@@ -561,9 +598,11 @@ tbody td .vt{color:var(--muted);font-size:10px;font-style:italic}
     </div>
 </div>
 
+<div id="customTip" class="custom-tip"></div>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <script>
-const D=[{"data":46113,"mes":"ABRIL","mesAno":"202604","pedido":"4500246083","requisicao":"200138608","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"PAVONI","tipo":"PEÇAS","descricao":"PEÇAS FREIO ESTACIONARIO 544 PA00695","valor":6847.51,"cot1":6847.51,"cot2":16970.36,"cot3":0.0,"vuupt":"","solicitante":"LEONARDO"},{"data":46113,"mes":"ABRIL","mesAno":"202604","pedido":"4500246096","requisicao":"200138608","status":"APROVADO","enviado":"SIM","nf":"12667","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TERRAVERDE","tipo":"PEÇAS","descricao":"PEÇAS FREIO ESTACIONARIO 544 PA00695","valor":1802.912,"cot1":3736.74,"cot2":1802.912,"cot3":0.0,"vuupt":"https://app.vuupt.com/manager/orders/48064309","solicitante":"LEONARDO"},{"data":46113,"mes":"ABRIL","mesAno":"202604","pedido":"4500246068","requisicao":"600007338","status":"APROVADO","enviado":"SIM","nf":"12681","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TERRAVERDE","tipo":"ESTOQUE","descricao":"COMPRA DE PEÇAS PARA ESTOQUE","valor":4707.32,"cot1":4707.32,"cot2":0.0,"cot3":0.0,"vuupt":"https://app.vuupt.com/manager/orders/48064309","solicitante":"VANESSA"},{"data":46113,"mes":"ABRIL","mesAno":"202604","pedido":"4500246049","requisicao":"200138646","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"MACIH","tipo":"SERVIÇO","descricao":"SERVIÇO DE RECONDICIONAMENTO DE CILINDRO","valor":3685.0,"cot1":3685.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"LEONARDO"},{"data":46113,"mes":"ABRIL","mesAno":"202604","pedido":"4500246073","requisicao":"200138680","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"GENERAL DIESEL","tipo":"SERVIÇO","descricao":"SERVIÇO RECONDICIONAMENTO DE BOMBA INJETORA","valor":5136.0,"cot1":5136.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46113,"mes":"ABRIL","mesAno":"202604","pedido":"4500246128","requisicao":"200138690","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"GENERAL DIESEL","tipo":"SERVIÇO","descricao":"SERVIÇO DE TESTE DE BICO INJETOR","valor":1467.2,"cot1":1467.2,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246306","requisicao":"200138720","status":"APROVADO","enviado":"SIM","nf":"3534","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"PIRAJA/GTOR","tipo":"PEÇAS","descricao":"PEÇA REPARO DO CUBO L110 VOLVO PA00481","valor":1100.0,"cot1":1050.0,"cot2":1100.0,"cot3":2756.15,"vuupt":"","solicitante":"LEONARDO"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246394","requisicao":"200138738","status":"APROVADO","enviado":"SIM","nf":"13595","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"BRASIL VEDAÇÕES","tipo":"PEÇAS","descricao":"REPARO CILINDRO DE ELEVAÇÃO 524K E 724K JOHN DEERE","valor":643.0,"cot1":643.0,"cot2":0.0,"cot3":0.0,"vuupt":"https://app.vuupt.com/manager/orders/48135164","solicitante":"LEONARDO"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246394","requisicao":"200138740","status":"APROVADO","enviado":"SIM","nf":"13595","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"BRASIL VEDAÇÕES","tipo":"PEÇAS","descricao":"REPARO CILINDRO DE ELEVAÇÃO 524K E 724K JOHN DEERE","valor":643.0,"cot1":643.0,"cot2":0.0,"cot3":0.0,"vuupt":"https://app.vuupt.com/manager/orders/48135164","solicitante":"LEONARDO"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246394","requisicao":"200138736","status":"APROVADO","enviado":"SIM","nf":"13595","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"BRASIL VEDAÇÕES","tipo":"PEÇAS","descricao":"REPARO CILINDRO DE ELEVAÇÃO 524K E 724K JOHN DEERE","valor":345.0,"cot1":345.0,"cot2":0.0,"cot3":0.0,"vuupt":"https://app.vuupt.com/manager/orders/48135164","solicitante":"LEONARDO"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246335","requisicao":"600007347","status":"APROVADO","enviado":"SIM","nf":"12800","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TERRAVERDE","tipo":"PEÇAS","descricao":"RETENTOR|RE542195|JOHN DEERE","valor":2261.48,"cot1":2261.48,"cot2":0.0,"cot3":0.0,"vuupt":"https://app.vuupt.com/manager/orders/48180748","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246481 ","requisicao":"200136119","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"ARTHUR ALVES","aprov2":"GILSON OSEAS","fornecedor":"RETIFORT","tipo":"SERVIÇO","descricao":"SERVIÇO DE RETIFICA","valor":8056.0,"cot1":8056.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246507","requisicao":"200130560","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"ARTHUR ALVES","aprov2":"","fornecedor":"RETIFORT","tipo":"SERVIÇO","descricao":"SERVIÇO DE RETIFICA","valor":4416.0,"cot1":4416.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246415","requisicao":"200138189","status":"APROVADO","enviado":"SIM","nf":"12729","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TERRAVERDE","tipo":"PEÇAS","descricao":"SELO|CD16284|JOHN DEERE","valor":189.4,"cot1":189.4,"cot2":0.0,"cot3":0.0,"vuupt":"https://app.vuupt.com/manager/orders/48132766","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246459","requisicao":"10012103","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"EASY BUY","tipo":"FERRAMENTAS","descricao":"COMPRA DE PLASTIFICADORA","valor":474.37,"cot1":474.37,"cot2":0.0,"cot3":0.0,"vuupt":"Entrega pelo fornecedor","solicitante":"LEONARDO"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246741","requisicao":"200093927","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"SCM","tipo":"PEÇAS","descricao":"VIRABREQUIM|VOE21351237|VOLVO D6","valor":10522.16,"cot1":9116.25,"cot2":12900.0,"cot3":10522.16,"vuupt":"Entrega pelo fornecedor","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246528","requisicao":"200138829","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TECNOTURBO","tipo":"SERVIÇO","descricao":" SERVICO DE RECONDICIONAMENTO DE TURBINA","valor":3970.0,"cot1":3970.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246675","requisicao":"200137620","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"GILSON OSEAS","fornecedor":"RETIFORT","tipo":"SERVIÇO","descricao":"SERVIÇO DE RETIFICA","valor":20169.0,"cot1":20169.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46118,"mes":"ABRIL","mesAno":"202604","pedido":"4500246918","requisicao":"400036898","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"A C DE","tipo":"PEÇAS","descricao":"COMPRA DE VÁLVULA","valor":599.0,"cot1":599.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"ROGERIO"},{"data":46118,"mes":"ABRIL","mesAno":"202604","pedido":"4500246941","requisicao":"400036895","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"GATES","tipo":"PEÇAS","descricao":"COMPRA DE MANGUEIRAS HIDRAÚLICAS","valor":13953.57,"cot1":13953.57,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"ROGERIO"},{"data":46118,"mes":"ABRIL","mesAno":"202604","pedido":"4500246944","requisicao":"400036897","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"GATES","tipo":"PEÇAS","descricao":"COMPRA DE TERMINAIS HIDRÁULICOS","valor":4840.46,"cot1":4840.46,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"ROGERIO"},{"data":46118,"mes":"ABRIL","mesAno":"202604","pedido":"4500246904","requisicao":"400036898","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"EASY BUY","tipo":"PEÇAS","descricao":"VALVULA|RE572088|JOHN DEERE","valor":599.0,"cot1":599.0,"cot2":0.0,"cot3":0.0,"vuupt":"Entrega pelo fornecedor","solicitante":"ROGERIO"},{"data":46119,"mes":"ABRIL","mesAno":"202604","pedido":"4500247201","requisicao":"600007388","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"JAVA DIESEL","tipo":"ESTOQUE","descricao":"COMPRA DE PEÇAS PARA O SETOR DE INJEÇÃO","valor":13610.36,"cot1":13610.36,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46119,"mes":"ABRIL","mesAno":"202604","pedido":"4500247245","requisicao":"600007389","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"GILSON OSEAS","fornecedor":"RP DIESEL","tipo":"ESTOQUE","descricao":"COMPRA DE PEÇAS PARA O SETOR DE INJEÇÃO","valor":15799.62,"cot1":15799.62,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46120,"mes":"ABRIL","mesAno":"202604","pedido":"4500247560","requisicao":"400036935","status":"APROVADO","enviado":"SIM","nf":"719","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"RHFIX","tipo":"PEÇAS","descricao":"COMPRA DE PEÇAS PARA O SETOR DE MANGUEIRAS","valor":500.0,"cot1":500.0,"cot2":0.0,"cot3":0.0,"vuupt":"https://app.vuupt.com/manager/orders/48247771","solicitante":"ROGERIO"},{"data":46120,"mes":"ABRIL","mesAno":"202604","pedido":"4500247603","requisicao":"600007401","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"EASY BUY","tipo":"ESTOQUE","descricao":"COMPRA DE COLA LACTITE PARA ESTOQUE","valor":1417.5,"cot1":1417.5,"cot2":0.0,"cot3":0.0,"vuupt":"Entrega pelo fornecedor","solicitante":"VANESSA"},{"data":46120,"mes":"ABRIL","mesAno":"202604","pedido":"4500247638","requisicao":"600007402","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TERRAVERDE","tipo":"ESTOQUE","descricao":"COMPRA DE PEÇAS PARA ESTOQUE","valor":3037.8,"cot1":3037.8,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46120,"mes":"ABRIL","mesAno":"202604","pedido":"4500247687","requisicao":"200139280","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TERRAVERDE","tipo":"PEÇAS","descricao":"COMPRA DE ORIFICIOS","valor":1016.16,"cot1":1016.16,"cot2":1800.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46120,"mes":"ABRIL","mesAno":"202604","pedido":"4500247754","requisicao":"200139321","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"RETIFORT","tipo":"SERVIÇO","descricao":"RETIFICA DE CABEÇOTE","valor":3230.0,"cot1":3230.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46120,"mes":"ABRIL","mesAno":"202604","pedido":"","requisicao":"","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"","tipo":"PEÇAS","descricao":"COMPRA DE BOMBA INJETORA","valor":0.0,"cot1":0.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"VANESSA"},{"data":46120,"mes":"ABRIL","mesAno":"202604","pedido":"4500247796","requisicao":"10012104","status":"APROVADO","enviado":"SIM","nf":"5153","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"SENA ROLAMENTOS","tipo":"PEÇAS","descricao":"ROLAMENTO|60032RS","valor":225.0,"cot1":492.57,"cot2":225.0,"cot3":0.0,"vuupt":"https://app.vuupt.com/manager/orders/48248019","solicitante":"LEONARDO"},{"data":46121,"mes":"ABRIL","mesAno":"202604","pedido":"","requisicao":"200139241","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"","tipo":"PEÇAS","descricao":"PEÇAS EIXO TRASEIRO RE00511 JCB","valor":0.0,"cot1":0.0,"cot2":0.0,"cot3":0.0,"vuupt":"","solicitante":"LEONARDO"}];
+const D=[{"data":46113,"mes":"ABRIL","mesAno":"202604","pedido":"4500246083","requisicao":"200138608","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"PAVONI","tipo":"PEÇAS","descricao":"PEÇAS FREIO ESTACIONARIO 544 PA00695","valor":6847.51,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nPAVONI","cot1":6847.51,"cot2":16970.36,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nPAVONI","cot2_comentario":"Guilherme Janotti Da Silva Cruz:\nTERRAVERDE","cot3_comentario":"","vuupt":"","solicitante":"LEONARDO"},{"data":46113,"mes":"ABRIL","mesAno":"202604","pedido":"4500246096","requisicao":"200138608","status":"APROVADO","enviado":"SIM","nf":"12667","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TERRAVERDE","tipo":"PEÇAS","descricao":"PEÇAS FREIO ESTACIONARIO 544 PA00695","valor":1802.912,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nTERRAVERDE","cot1":3736.74,"cot2":1802.912,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nPAVONI","cot2_comentario":"Guilherme Janotti Da Silva Cruz:\nTERRAVERDE","cot3_comentario":"","vuupt":"https://app.vuupt.com/manager/orders/48064309","solicitante":"LEONARDO"},{"data":46113,"mes":"ABRIL","mesAno":"202604","pedido":"4500246068","requisicao":"600007338","status":"APROVADO","enviado":"SIM","nf":"12681","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TERRAVERDE","tipo":"ESTOQUE","descricao":"COMPRA DE PEÇAS PARA ESTOQUE","valor":4707.32,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nTERRAVERDE","cot1":4707.32,"cot2":0.0,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nTERRAVERDE","cot2_comentario":"","cot3_comentario":"","vuupt":"https://app.vuupt.com/manager/orders/48064309","solicitante":"VANESSA"},{"data":46113,"mes":"ABRIL","mesAno":"202604","pedido":"4500246049","requisicao":"200138646","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"MACIH","tipo":"SERVIÇO","descricao":"SERVIÇO DE RECONDICIONAMENTO DE CILINDRO","valor":3685.0,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nMACIH","cot1":3685.0,"cot2":0.0,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nMACIH","cot2_comentario":"","cot3_comentario":"","vuupt":"","solicitante":"LEONARDO"},{"data":46113,"mes":"ABRIL","mesAno":"202604","pedido":"4500246073","requisicao":"200138680","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"GENERAL DIESEL","tipo":"SERVIÇO","descricao":"SERVIÇO RECONDICIONAMENTO DE BOMBA INJETORA","valor":5136.0,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nGENERAL DIESEL","cot1":5136.0,"cot2":0.0,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nGENERAL DIESEL","cot2_comentario":"","cot3_comentario":"","vuupt":"","solicitante":"VANESSA"},{"data":46113,"mes":"ABRIL","mesAno":"202604","pedido":"4500246128","requisicao":"200138690","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"GENERAL DIESEL","tipo":"SERVIÇO","descricao":"SERVIÇO DE TESTE DE BICO INJETOR","valor":1467.2,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nGENERAL DIESEL","cot1":1467.2,"cot2":0.0,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nGENERAL DIESEL","cot2_comentario":"","cot3_comentario":"","vuupt":"","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246306","requisicao":"200138720","status":"APROVADO","enviado":"SIM","nf":"3534","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"PIRAJA/GTOR","tipo":"PEÇAS","descricao":"PEÇA REPARO DO CUBO L110 VOLVO PA00481","valor":1100.0,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nPIRAJA","cot1":1050.0,"cot2":1100.0,"cot3":2756.15,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nVOL IMPORTS","cot2_comentario":"Guilherme Janotti Da Silva Cruz:\nPIRAJA","cot3_comentario":"Guilherme Janotti Da Silva Cruz:\nTRACBEL","vuupt":"","solicitante":"LEONARDO"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246394","requisicao":"200138738","status":"APROVADO","enviado":"SIM","nf":"13595","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"BRASIL VEDAÇÕES","tipo":"PEÇAS","descricao":"REPARO CILINDRO DE ELEVAÇÃO 524K E 724K JOHN DEERE","valor":643.0,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nBRASIL VEDAÇÕES","cot1":643.0,"cot2":0.0,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nBRASIL VEDAÇÕES","cot2_comentario":"","cot3_comentario":"","vuupt":"https://app.vuupt.com/manager/orders/48135164","solicitante":"LEONARDO"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246394","requisicao":"200138740","status":"APROVADO","enviado":"SIM","nf":"13595","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"BRASIL VEDAÇÕES","tipo":"PEÇAS","descricao":"REPARO CILINDRO DE ELEVAÇÃO 524K E 724K JOHN DEERE","valor":643.0,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nBRASIL VEDAÇÕES","cot1":643.0,"cot2":0.0,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nBRASIL VEDAÇÕES","cot2_comentario":"","cot3_comentario":"","vuupt":"https://app.vuupt.com/manager/orders/48135164","solicitante":"LEONARDO"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246394","requisicao":"200138736","status":"APROVADO","enviado":"SIM","nf":"13595","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"BRASIL VEDAÇÕES","tipo":"PEÇAS","descricao":"REPARO CILINDRO DE ELEVAÇÃO 524K E 724K JOHN DEERE","valor":345.0,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nBRASIL VEDAÇÕES","cot1":345.0,"cot2":0.0,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nBRASIL VEDAÇÕES","cot2_comentario":"","cot3_comentario":"","vuupt":"https://app.vuupt.com/manager/orders/48135164","solicitante":"LEONARDO"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246335","requisicao":"600007347","status":"APROVADO","enviado":"SIM","nf":"12800","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TERRAVERDE","tipo":"PEÇAS","descricao":"RETENTOR|RE542195|JOHN DEERE","valor":2261.48,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nTERRAVERDE","cot1":2261.48,"cot2":0.0,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nTERRAVERDE","cot2_comentario":"","cot3_comentario":"","vuupt":"https://app.vuupt.com/manager/orders/48180748","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246481 ","requisicao":"200136119","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"ARTHUR ALVES","aprov2":"GILSON OSEAS","fornecedor":"RETIFORT","tipo":"SERVIÇO","descricao":"SERVIÇO DE RETIFICA","valor":8056.0,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nRETIFORT","cot1":8056.0,"cot2":0.0,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nRETIFORT","cot2_comentario":"","cot3_comentario":"","vuupt":"","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246507","requisicao":"200130560","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"ARTHUR ALVES","aprov2":"","fornecedor":"RETIFORT","tipo":"SERVIÇO","descricao":"SERVIÇO DE RETIFICA","valor":4416.0,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nRETIFORT","cot1":4416.0,"cot2":0.0,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nRETIFORT","cot2_comentario":"","cot3_comentario":"","vuupt":"","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246415","requisicao":"200138189","status":"APROVADO","enviado":"SIM","nf":"12729","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TERRAVERDE","tipo":"PEÇAS","descricao":"SELO|CD16284|JOHN DEERE","valor":189.4,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nTERRAVERDE","cot1":189.4,"cot2":0.0,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nTERRAVERDE","cot2_comentario":"","cot3_comentario":"","vuupt":"https://app.vuupt.com/manager/orders/48132766","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246459","requisicao":"10012103","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"EASY BUY","tipo":"FERRAMENTAS","descricao":"COMPRA DE PLASTIFICADORA","valor":474.37,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nEASY BUY","cot1":474.37,"cot2":0.0,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nEASY BUY","cot2_comentario":"","cot3_comentario":"","vuupt":"Entrega pelo fornecedor","solicitante":"LEONARDO"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246741","requisicao":"200093927","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"SCM","tipo":"PEÇAS","descricao":"VIRABREQUIM|VOE21351237|VOLVO D6","valor":10522.16,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nSCM","cot1":9116.25,"cot2":12900.0,"cot3":10522.16,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nPAVONI","cot2_comentario":"Guilherme Janotti Da Silva Cruz:\nPIRAJÁ","cot3_comentario":"Guilherme Janotti Da Silva Cruz:\nSCM","vuupt":"Entrega pelo fornecedor","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246528","requisicao":"200138829","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TECNOTURBO","tipo":"SERVIÇO","descricao":" SERVICO DE RECONDICIONAMENTO DE TURBINA","valor":3970.0,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nTECNOTURBO","cot1":3970.0,"cot2":0.0,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nTECNOTURBO","cot2_comentario":"","cot3_comentario":"","vuupt":"","solicitante":"VANESSA"},{"data":46114,"mes":"ABRIL","mesAno":"202604","pedido":"4500246675","requisicao":"200137620","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"GILSON OSEAS","fornecedor":"RETIFORT","tipo":"SERVIÇO","descricao":"SERVIÇO DE RETIFICA","valor":20169.0,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nRETIFORT","cot1":20169.0,"cot2":0.0,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nRETIFORT","cot2_comentario":"","cot3_comentario":"","vuupt":"","solicitante":"VANESSA"},{"data":46118,"mes":"ABRIL","mesAno":"202604","pedido":"4500246918","requisicao":"400036898","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"A C DE","tipo":"PEÇAS","descricao":"COMPRA DE VÁLVULA","valor":599.0,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nA C DE","cot1":599.0,"cot2":0.0,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nA C DE","cot2_comentario":"","cot3_comentario":"","vuupt":"","solicitante":"ROGERIO"},{"data":46118,"mes":"ABRIL","mesAno":"202604","pedido":"4500246941","requisicao":"400036895","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"GATES","tipo":"PEÇAS","descricao":"COMPRA DE MANGUEIRAS HIDRAÚLICAS","valor":13953.57,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nGATES","cot1":13953.57,"cot2":0.0,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nGATES","cot2_comentario":"","cot3_comentario":"","vuupt":"","solicitante":"ROGERIO"},{"data":46118,"mes":"ABRIL","mesAno":"202604","pedido":"4500246944","requisicao":"400036897","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"GATES","tipo":"PEÇAS","descricao":"COMPRA DE TERMINAIS HIDRÁULICOS","valor":4840.46,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nGATES","cot1":4840.46,"cot2":0.0,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nGATES","cot2_comentario":"","cot3_comentario":"","vuupt":"","solicitante":"ROGERIO"},{"data":46118,"mes":"ABRIL","mesAno":"202604","pedido":"4500246904","requisicao":"400036898","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"EASY BUY","tipo":"PEÇAS","descricao":"VALVULA|RE572088|JOHN DEERE","valor":759.86,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nEASY BUY","cot1":759.86,"cot2":0.0,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nEASY BUY","cot2_comentario":"","cot3_comentario":"","vuupt":"Entrega pelo fornecedor","solicitante":"ROGERIO"},{"data":46119,"mes":"ABRIL","mesAno":"202604","pedido":"4500247201","requisicao":"600007388","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"JAVA DIESEL","tipo":"ESTOQUE","descricao":"COMPRA DE PEÇAS PARA O SETOR DE INJEÇÃO","valor":13610.36,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nJAVA DIESEL","cot1":13610.36,"cot2":0.0,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nJAVA DIESEL","cot2_comentario":"","cot3_comentario":"","vuupt":"","solicitante":"VANESSA"},{"data":46119,"mes":"ABRIL","mesAno":"202604","pedido":"4500247245","requisicao":"600007389","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"GILSON OSEAS","fornecedor":"RP DIESEL","tipo":"ESTOQUE","descricao":"COMPRA DE PEÇAS PARA O SETOR DE INJEÇÃO","valor":15799.62,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nRP DIESEL","cot1":15799.62,"cot2":0.0,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nRP DIESEL","cot2_comentario":"","cot3_comentario":"","vuupt":"","solicitante":"VANESSA"},{"data":46120,"mes":"ABRIL","mesAno":"202604","pedido":"4500247560","requisicao":"400036935","status":"APROVADO","enviado":"SIM","nf":"719","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"RHFIX","tipo":"PEÇAS","descricao":"COMPRA DE PEÇAS PARA O SETOR DE MANGUEIRAS","valor":500.0,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nRHFIX","cot1":500.0,"cot2":0.0,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nRHFIX","cot2_comentario":"","cot3_comentario":"","vuupt":"https://app.vuupt.com/manager/orders/48247771","solicitante":"ROGERIO"},{"data":46120,"mes":"ABRIL","mesAno":"202604","pedido":"4500247603","requisicao":"600007401","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"EASY BUY","tipo":"ESTOQUE","descricao":"COMPRA DE COLA LACTITE PARA ESTOQUE","valor":1417.5,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nEASY BUY","cot1":1417.5,"cot2":0.0,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nEASY BUY","cot2_comentario":"","cot3_comentario":"","vuupt":"Entrega pelo fornecedor","solicitante":"VANESSA"},{"data":46120,"mes":"ABRIL","mesAno":"202604","pedido":"4500247638","requisicao":"600007402","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TERRAVERDE","tipo":"ESTOQUE","descricao":"COMPRA DE PEÇAS PARA ESTOQUE","valor":3037.8,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nTERRAVERDE","cot1":3037.8,"cot2":0.0,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nTERRAVERDE","cot2_comentario":"","cot3_comentario":"","vuupt":"","solicitante":"VANESSA"},{"data":46120,"mes":"ABRIL","mesAno":"202604","pedido":"4500247687","requisicao":"200139280","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"TERRAVERDE","tipo":"PEÇAS","descricao":"COMPRA DE ORIFICIOS","valor":1016.16,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nTERRAVERDE","cot1":1016.16,"cot2":1800.0,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nTERRAVERDE","cot2_comentario":"Guilherme Janotti Da Silva Cruz:\nRECH","cot3_comentario":"","vuupt":"","solicitante":"VANESSA"},{"data":46120,"mes":"ABRIL","mesAno":"202604","pedido":"4500247754","requisicao":"200139321","status":"APROVADO","enviado":"SIM","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"RETIFORT","tipo":"SERVIÇO","descricao":"RETIFICA DE CABEÇOTE","valor":3230.0,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nRETIFORT","cot1":3230.0,"cot2":0.0,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nRETIFORT","cot2_comentario":"","cot3_comentario":"","vuupt":"","solicitante":"VANESSA"},{"data":46120,"mes":"ABRIL","mesAno":"202604","pedido":"","requisicao":"","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"","tipo":"PEÇAS","descricao":"COMPRA DE BOMBA INJETORA","valor":0.0,"valor_comentario":"","cot1":0.0,"cot2":0.0,"cot3":0.0,"cot1_comentario":"","cot2_comentario":"","cot3_comentario":"","vuupt":"","solicitante":"VANESSA"},{"data":46120,"mes":"ABRIL","mesAno":"202604","pedido":"4500247796","requisicao":"10012104","status":"APROVADO","enviado":"SIM","nf":"5153","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"SENA ROLAMENTOS","tipo":"PEÇAS","descricao":"ROLAMENTO|60032RS","valor":225.0,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nSENA ROLAMENTOS","cot1":492.57,"cot2":225.0,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nEASY BUY","cot2_comentario":"Guilherme Janotti Da Silva Cruz:\nSENA ROLAMENTOS","cot3_comentario":"","vuupt":"https://app.vuupt.com/manager/orders/48248019","solicitante":"LEONARDO"},{"data":46121,"mes":"ABRIL","mesAno":"202604","pedido":"","requisicao":"200139241","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"","tipo":"PEÇAS","descricao":"PEÇAS EIXO TRASEIRO RE00511 JCB","valor":0.0,"valor_comentario":"","cot1":0.0,"cot2":0.0,"cot3":0.0,"cot1_comentario":"","cot2_comentario":"","cot3_comentario":"","vuupt":"","solicitante":"LEONARDO"},{"data":46121,"mes":"ABRIL","mesAno":"202604","pedido":"4500248080","requisicao":"600007416","status":"EM APROVAÇÃO","enviado":"","nf":"","aprov1":"CAIQUE FIRMINO","aprov2":"","fornecedor":"EASY BUY","tipo":"FERRAMENTAS","descricao":"PEGADOR MAGNETICO","valor":132.72,"valor_comentario":"Guilherme Janotti Da Silva Cruz:\nEASYBUY","cot1":306.24,"cot2":132.72,"cot3":0.0,"cot1_comentario":"Guilherme Janotti Da Silva Cruz:\nLOJA DO MECANICO","cot2_comentario":"Guilherme Janotti Da Silva Cruz:\nEASYBUY","cot3_comentario":"","vuupt":"Entrega pelo fornecedor","solicitante":"VANESSA"}];
 
 const isR=s=>s==='RECUSADO'||s==='REPROVADO';
 const sCol=s=>s==='APROVADO'?'#228b5a':s==='EM APROVAÇÃO'?'#ba7517':isR(s)?'#a32d2d':'#555';
@@ -574,6 +613,150 @@ const fN=v=>v==null||v===''?'-':Number(v).toLocaleString('pt-BR',{minimumFractio
 const pc=(v,t)=>t?((v/t)*100).toFixed(1)+'%':'0%';
 const pD=s=>{if(!s)return'-';const d=new Date((s-25569)*86400000);return d.toLocaleDateString('pt-BR')};
 const fMesAno=v=>{if(!v)return'';const s=String(v).trim();if(/^\d{6}$/.test(s)){const ano=s.slice(0,4);const mes=s.slice(4,6);const meses={'01':'Jan','02':'Fev','03':'Mar','04':'Abr','05':'Mai','06':'Jun','07':'Jul','08':'Ago','09':'Set','10':'Out','11':'Nov','12':'Dez'};return (meses[mes]||mes)+'/'+ano.slice(2);}return s;};
+
+function escHtml(texto){
+    if(!texto) return '';
+    return String(texto)
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;')
+        .replace(/'/g,'&#39;');
+}
+
+function escAttr(texto){
+    return escHtml(texto);
+}
+
+function montarTooltipHTML(titulo, valor, nota){
+    let html = '';
+    if(titulo){
+        html += '<div class="tip-title">' + escHtml(titulo) + '</div>';
+    }
+    if(valor){
+        html += '<div class="tip-value">' + escHtml(valor) + '</div>';
+    }
+    if(nota){
+        html += '<div class="tip-note">' + escHtml(nota) + '</div>';
+    }
+    return html;
+}
+
+function ativarTooltipsCustomizados(){
+    const tip = document.getElementById('customTip');
+    const itens = document.querySelectorAll('.tip-anchor');
+
+    itens.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            const titulo = el.dataset.tipTitle || '';
+            const valor = el.dataset.tipValue || '';
+            const nota = el.dataset.tipNote || '';
+
+            if(!titulo && !valor && !nota) return;
+
+            tip.innerHTML = montarTooltipHTML(titulo, valor, nota);
+            tip.style.display = 'block';
+        });
+
+        el.addEventListener('mousemove', (e) => {
+            const offsetX = 16;
+            const offsetY = 12;
+
+            let left = e.clientX + offsetX;
+            let top = e.clientY + offsetY;
+
+            const rect = tip.getBoundingClientRect();
+
+            if(left + rect.width > window.innerWidth - 8){
+                left = e.clientX - rect.width - 12;
+            }
+
+            if(top + rect.height > window.innerHeight - 8){
+                top = e.clientY - rect.height - 12;
+            }
+
+            tip.style.left = left + 'px';
+            tip.style.top = top + 'px';
+        });
+
+        el.addEventListener('mouseleave', () => {
+            tip.style.display = 'none';
+            tip.innerHTML = '';
+        });
+    });
+}
+
+function limparLinhasComentario(comentario){
+    if(!comentario) return [];
+
+    return String(comentario)
+        .split('\n')
+        .map(x => x.trim())
+        .filter(Boolean)
+        .filter(x => {
+            const t = x.toLowerCase();
+
+            // remove assinatura/nome do autor do comentário
+            if (t.includes('guilherme janotti da silva cruz')) return false;
+
+            // remove linha terminando com :
+            if (x.endsWith(':')) return false;
+
+            return true;
+        });
+}
+
+function extrairFornecedor(comentario, padrao){
+    const linhas = limparLinhasComentario(comentario);
+    if(!linhas.length) return padrao || '';
+    return linhas[linhas.length - 1];
+}
+
+function montarNota(comentario, fornecedor){
+    const linhas = limparLinhasComentario(comentario);
+    if(linhas.length <= 1) return '';
+    if(linhas[linhas.length - 1] === fornecedor){
+        linhas.pop();
+    }
+    return linhas.join('\n');
+}
+function rCot(v, comentario){
+    if(!v) return '-';
+
+    const valorFmt = fN(v);
+    if(!comentario){
+        return '<span>' + valorFmt + '</span>';
+    }
+
+    const fornecedor = extrairFornecedor(comentario, 'Cotação');
+    const nota = montarNota(comentario, fornecedor);
+
+    return '<span class="tip-anchor" ' +
+        'data-tip-title="' + escAttr(fornecedor) + '" ' +
+        'data-tip-value="' + escAttr('R$ ' + valorFmt) + '" ' +
+        'data-tip-note="' + escAttr(nota) + '">' +
+        valorFmt +
+        '</span>';
+}
+
+function rValor(v, comentario){
+    if(v == null || v === '') return '-';
+
+    const valorFmt = fm(v);
+    if(!comentario){
+        return '<span style="font-weight:600;color:#228b5a">' + valorFmt + '</span>';
+    }
+
+    const fornecedor = extrairFornecedor(comentario, 'Valor do Pedido');
+    const nota = montarNota(comentario, fornecedor);
+
+    return '<span class="tip-anchor" style="font-weight:600;color:#228b5a" ' +
+        'data-tip-title="' + escAttr(fornecedor) + '" ' +
+        'data-tip-value="' + escAttr(valorFmt) + '" ' +
+        'data-tip-note="' + escAttr(nota) + '">' +
+        valorFmt +
+        '</span>';
+}
 
 const FL=[
 {id:'fM',l:'MÊS',k:'mes',w:80},
@@ -768,20 +951,67 @@ scales:{x:{ticks:{color:'#888',font:{size:10},callback:v=>'R$ '+(v/1000).toFixed
 });
 
 const cR=fi.filter(r=>r.cot2>0||r.cot3>0);
-if(cR.length>0)gc('cCot',{
+if(cR.length>0){
+gc('cCot',{
 type:'bar',
-data:{labels:cR.map(r=>(r.descricao||'').substring(0,30)),datasets:[
-{label:'1ª Cotação',data:cR.map(r=>r.cot1||0),backgroundColor:'#0b4ea2',borderRadius:3,barThickness:20},
-{label:'2ª Cotação',data:cR.map(r=>r.cot2||0),backgroundColor:'#228b5a',borderRadius:3,barThickness:20},
-{label:'3ª Cotação',data:cR.map(r=>r.cot3||0),backgroundColor:'#a32d2d',borderRadius:3,barThickness:20}
-]},
+data:{
+labels:cR.map(r=>(r.descricao||'').substring(0,30)),
+datasets:[
+{
+label:'1ª Cotação',
+data:cR.map(r=>r.cot1||0),
+comentarios:cR.map(r=>r.cot1_comentario||''),
+backgroundColor:'#0b4ea2',
+borderRadius:3,
+barThickness:20
+},
+{
+label:'2ª Cotação',
+data:cR.map(r=>r.cot2||0),
+comentarios:cR.map(r=>r.cot2_comentario||''),
+backgroundColor:'#228b5a',
+borderRadius:3,
+barThickness:20
+},
+{
+label:'3ª Cotação',
+data:cR.map(r=>r.cot3||0),
+comentarios:cR.map(r=>r.cot3_comentario||''),
+backgroundColor:'#a32d2d',
+borderRadius:3,
+barThickness:20
+}
+]
+},
 options:{
 responsive:true,
 maintainAspectRatio:false,
-plugins:{legend:{labels:{color:'#aaa',font:{size:11},usePointStyle:true}},tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+fm(ctx.raw)}}},
+plugins:{
+legend:{labels:{color:'#aaa',font:{size:11},usePointStyle:true}},
+tooltip:{
+callbacks:{
+title:(items)=>{
+if(!items.length) return '';
+const idx=items[0].dataIndex;
+const comentario = items[0].dataset.comentarios?.[idx] || '';
+return extrairFornecedor(comentario, 'Cotação');
+},
+label:(ctx)=>{
+return ctx.dataset.label + ': ' + fm(ctx.raw);
+},
+afterLabel:(ctx)=>{
+const comentario = ctx.dataset.comentarios?.[ctx.dataIndex] || '';
+const fornecedor = extrairFornecedor(comentario, '');
+const nota = montarNota(comentario, fornecedor);
+return nota ? nota : '';
+}
+}
+}
+},
 scales:{x:{ticks:{color:'#888',font:{size:10}},grid:{display:false}},y:{ticks:{color:'#888',font:{size:10},callback:v=>'R$ '+(v/1000).toFixed(1)+'k'},grid:{color:'rgba(255,255,255,.04)'}}}
 }
 });
+}
 }
 
 function rE(){
@@ -802,7 +1032,7 @@ function rV(v){if(!v)return'<span style="color:#333">—</span>';if(String(v).st
 function rT(){
 document.getElementById('cL').textContent='('+fi.length+' registros)';
 document.getElementById('tB').innerHTML=fi.map(r=>{const c=sCls(r.status);const e=cE(r);
-return '<tr><td>'+rV(r.vuupt)+'</td><td>'+pD(r.data)+'</td><td>'+(r.pedido||'')+'</td><td>'+(r.requisicao||'')+'</td><td><span class="sb '+c+'">'+(r.status||'')+'</span></td><td>'+(r.enviado||'')+'</td><td>'+(r.nf||'')+'</td><td>'+(r.aprov1||'')+'</td><td>'+(r.aprov2||'')+'</td><td>'+(r.fornecedor||'')+'</td><td>'+(r.tipo||'')+'</td><td style="max-width:220px;overflow:hidden;text-overflow:ellipsis" title="'+(r.descricao||'')+'">'+(r.descricao||'')+'</td><td style="font-weight:600;color:#228b5a">'+fm(r.valor)+'</td><td>'+(r.cot1?fN(r.cot1):'-')+'</td><td>'+(r.cot2?fN(r.cot2):'-')+'</td><td>'+(r.cot3?fN(r.cot3):'-')+'</td><td>'+(e>0?'<span style="color:#228b5a;font-weight:600">'+fm(e)+'</span>':'-')+'</td><td>'+(r.solicitante||'')+'</td></tr>'}).join('');
+return '<tr><td>'+rV(r.vuupt)+'</td><td>'+pD(r.data)+'</td><td>'+(r.pedido||'')+'</td><td>'+(r.requisicao||'')+'</td><td><span class="sb '+c+'">'+(r.status||'')+'</span></td><td>'+(r.enviado||'')+'</td><td>'+(r.nf||'')+'</td><td>'+(r.aprov1||'')+'</td><td>'+(r.aprov2||'')+'</td><td>'+(r.fornecedor||'')+'</td><td>'+(r.tipo||'')+'</td><td style="max-width:220px;overflow:hidden;text-overflow:ellipsis" title="'+escAttr(r.descricao||'')+'">'+(r.descricao||'')+'</td><td>'+rValor(r.valor, r.valor_comentario)+'</td><td>'+rCot(r.cot1, r.cot1_comentario)+'</td><td>'+rCot(r.cot2, r.cot2_comentario)+'</td><td>'+rCot(r.cot3, r.cot3_comentario)+'</td><td>'+(e>0?'<span style="color:#228b5a;font-weight:600">'+fm(e)+'</span>':'-')+'</td><td>'+(r.solicitante||'')+'</td></tr>'}).join('');
 }
 
 function rFn(){
@@ -817,7 +1047,14 @@ document.getElementById('fKpi').innerHTML=[
 document.getElementById('tF').innerHTML=so.map(([f,d])=>'<tr><td>'+f+'</td><td>'+d.q+'</td><td style="font-weight:600;color:#228b5a">'+fm(d.v)+'</td><td>'+fm(d.v/d.q)+'</td><td>'+pc(d.v,t)+'</td></tr>').join('');
 }
 
-function re(){rK();rC();rE();rT();rFn()}
+function re(){
+rK();
+rC();
+rE();
+rT();
+rFn();
+ativarTooltipsCustomizados();
+}
 
 document.querySelectorAll('.tab').forEach(tab=>{
 tab.addEventListener('click',()=>{
